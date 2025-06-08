@@ -79,6 +79,8 @@ scene.add( mesh );
 
 ### 5. 创建相机，设置相机的位置
 使用投影透视模式的相机（PerspectiveCamera）来模拟人眼所看到的景象，它是3D场景的渲染中使用得最普遍的投影模式。
+
+这里的属性，将有一篇专门的相机文档来讲解。这里主要强调一下 `aspect`的设置，这个属性是摄像机视锥体的长宽比，该值默认为 canvas 的宽高比，https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial ，文档可知 canvas 默认大小为 300 像素 ×150 像素（宽 × 高，像素的单位是 px），所以 `aspect` 设置为 2
 ```js
 // 创建一个透视摄像机(PerspectiveCamera)
 const fov = 75;
