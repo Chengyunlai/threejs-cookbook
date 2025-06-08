@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <canvas id="c"></canvas>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+<script>
+    function main(){
+        // 定义立方体
+        const geometry = new THREE.BoxGeometry(1, 1, 1);
+        // 定义立方体材质
+        // const material = new THREE.MeshBasicMaterial({color:0x0088ff})
+        const material = new THREE.MeshPhongMaterial({color:0x3388ff})
+        // 使用Mesh包含上述定义的内容，使其成为一个物体
+        const cube = new THREE.Mesh(geometry, material)
+        // 定义一个场景，放置Mesh
+        const scene = new THREE.Scene()
+        scene.add(cube)
+        // 定义一个相机，并且设置相机的初始位置和属性
+        const fov = 75
+        const aspect = 2
+        const near = 0.1
+        const far = 5
+        const camera = new THREE.PerspectiveCamera(fov,  aspect, near, far)
+        camera.position.z = 2
+        // 定义一个渲染器，包含相机和场景
+        const canvas = document.querySelector('#c')
+        const renderer = new THREE.WebGLRenderer({antialias:true,canvas})
+        renderer.render(scene, camera);
+
+        // 动画效果的回调函数
+        function render(time){
+            time *= 0.001;
+            cube.rotation.x = time;
+            cube.rotation.y = time;
+            renderer.render(scene, camera);
+            requestAnimationFrame(render);
+        }
+        requestAnimationFrame(render)
+
+        // 添加灯光
+        const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+        directionalLight.position.set(-1, 2, 4);
+        scene.add( directionalLight );
+    }
+    main();
+</script>
+</html>
